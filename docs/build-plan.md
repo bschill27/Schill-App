@@ -19,7 +19,7 @@ Next.js `16.4.3`, React `19.3.1`, Zod `4.6.7`. Recheck these on the day of scaff
 | 5 | **Server API** | Route handlers: `/api/me`, `/api/policies`, `/api/policies/[id]`, `/api/quotes`, `/api/renewals`, `/api/documents`; Zod-validated responses | Contract tests pass against the mock |
 | 6 | **Staff inbox (backend)** | Inbox storage (Postgres via a hosted provider; SQLite locally), `/api/inbox` POST for client submissions, audit log | Submissions are stored; nothing is routed to Epic |
 | 7 | **Demo sign-in** | Demo accounts mapped to sample clients, session token, production build guard | A production build refuses demo sign-in (tested) |
-| 8 | **Mobile shell + design system** | Theme tokens, typography, light/dark, tab layout (Home, Policies, Documents, Contact), "broker one tap away" action | Accessible components; screenshot review |
+| 8 | **Mobile shell + design system** | Tokens and components from `docs/design-spec.md`, light/dark, tab layout (Home, Policies, Documents, Contact), "broker one tap away" action | Accessible components; screenshot review |
 | 9 | **Home snapshot** | Plain-language coverage summary, next renewal, open quotes, alerts | Reads only from the server API |
 | 10 | **Policies & coverage detail** | Policy list, detail with plain-language cover/limits/deductibles, link to wording/documents | Copy reviewed for accuracy |
 | 11 | **Quotes & renewals** | Quote list/detail, renewal timeline, "I have a question / request a change" → inbox | Client actions land in the staff inbox |
@@ -46,7 +46,7 @@ Next.js `16.4.3`, React `19.3.1`, Zod `4.6.7`. Recheck these on the day of scaff
 8. **TypeScript version.** TS 7 is current on npm. Use the TS version that Expo SDK 58
    and Next 16 support, not just the newest.
 9. **Hosting** for the server and inbox DB hasn't been decided yet (e.g. Vercel + a Canadian-region Postgres).
-10. **Branding.** We need Schill's logo, colours and fonts before step 8.
+10. **Branding.** Colours, type, spacing and components are now set by `docs/design-spec.md`. We still need Schill's logo and app icon.
 
 ## Launch checklist (step 13)
 

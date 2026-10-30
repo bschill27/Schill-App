@@ -19,7 +19,7 @@ with their broker one tap away.
 | `apps/mobile` | Expo + React Native + Expo Router, TypeScript strict |
 | `apps/server` | Next.js (App Router): the API for the app + a small staff inbox web UI |
 | `packages/shared` | Shared TypeScript types, Zod schemas, fictional BC sample data |
-| `docs/` | Spec (`docs/spec.md`) and build plan (`docs/build-plan.md`) |
+| `docs/` | Product spec (`docs/spec.md`, pending), design spec (`docs/design-spec.md`), build plan (`docs/build-plan.md`) |
 
 ## Tech stack
 
@@ -51,6 +51,17 @@ with their broker one tap away.
 5. **Demo sign-in is for development only.** It must be impossible to enable in
    a production build. Real auth (MFA + Face ID / biometrics) is required before launch.
 6. **No secrets in the repo.** Use env vars, and keep `.env.example` up to date.
+
+## Design system
+
+`docs/design-spec.md` is the source of truth for the look: colour tokens (light and dark),
+typography, spacing, motion, components and accessibility. Use its exact values. It was
+written for a habit-tracker example ("Calm Habits"), so **reuse its visual system, not
+its screens or copy**. Insurance screens come from the product spec. Key rules:
+- Mostly neutral screens, one focal colour per view: Schill orange `#E5762C` (`accent`).
+- Never put small text in `accent`; text links and primary buttons use `accentStrong` `#B4541A`.
+- One shadow per screen, line icons (lucide, stroke 1.75), no emoji, 8pt grid, 44pt targets.
+- Every screen has loading, empty and error states. Respect reduced motion and Dynamic Type.
 
 ## Product and UX principles
 
