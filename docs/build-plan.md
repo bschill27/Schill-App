@@ -15,7 +15,7 @@ Next.js `16.4.3`, React `19.3.1`, Zod `4.6.7`. Recheck these on the day of scaff
 | 1 | **Scaffold the workspace** | pnpm workspace, `apps/mobile` (create-expo-app, SDK 58, Expo Router), `apps/server` (create-next-app, App Router), `packages/shared`; shared tsconfig (strict), ESLint, Prettier, Vitest/Jest, CI (typecheck/lint/test) | Mobile boots in Expo Go / dev build, server serves `/api/health`, CI green |
 | 2 | **Domain model + Zod schemas** | `packages/shared`: Client, Policy, Coverage, Vehicle/Property, Quote, Renewal, Document, Broker, InboxItem schemas | Schemas compile; types inferred, not duplicated |
 | 3 | **Fictional BC sample data** | 3–5 sample households (home, auto incl. ICBC-style optional cover, tenant, small business), quotes, upcoming renewals | Data validates against the schemas in a test |
-| 4 | **Epic connector interface + mock** | `apps/server/lib/epic/`: read-only `EpicConnector` interface, `MockEpicConnector` on sample data, factory picking the mock by default | Test fails if the interface gains any write method |
+| 4 | **Epic connector interface + mock** | `apps/server/lib/epic/`: read-only `EpicConnector` interface and `MockEpicConnector` on sample data. The mock is the only implementation for now; the live Applied connector comes later | Test fails if the interface gains any write method |
 | 5 | **Server API** | Route handlers: `/api/me`, `/api/policies`, `/api/policies/[id]`, `/api/quotes`, `/api/renewals`, `/api/documents`; Zod-validated responses | Contract tests pass against the mock |
 | 6 | **Staff inbox (backend)** | Inbox storage (Postgres via a hosted provider; SQLite locally), `/api/inbox` POST for client submissions, audit log | Submissions are stored; nothing is routed to Epic |
 | 7 | **Demo sign-in** | Demo accounts mapped to sample clients, session token, production build guard | A production build refuses demo sign-in (tested) |
@@ -29,9 +29,10 @@ Next.js `16.4.3`, React `19.3.1`, Zod `4.6.7`. Recheck these on the day of scaff
 ## Open questions and risks
 
 1. **Spec and prompt list missing.** This whole plan is provisional until they arrive.
-2. **Applied Epic access.** We need to confirm with Applied which API access Schill has
-   (Epic SDK/API licensing, read-only scoped credentials, rate limits, sandbox).
-   This is the longest lead-time item, so start the conversation now.
+2. **Applied Epic API: deferred.** We're building against the mock only for now and
+   adding the live connector later. To keep that a drop-in, everything goes through the
+   `EpicConnector` interface and the mock's data mirrors Epic's real shapes as closely
+   as we can guess. Expect some mapping work when the real API is added.
 3. **Keeping Epic read-only.** It has to be enforced in code (interface with read methods only,
    plus a test) *and* in the credentials, if Applied supports read-only scopes.
 4. **Demo sign-in reaching production.** Needs a build-time guard plus a test.
@@ -50,7 +51,7 @@ Next.js `16.4.3`, React `19.3.1`, Zod `4.6.7`. Recheck these on the day of scaff
 ## Launch checklist (step 13)
 
 - [ ] Real auth with MFA + biometrics; demo sign-in compiled out
-- [ ] Live Epic connector behind the same interface, read-only creds, tested in sandbox
+- [ ] Live Epic connector (later phase, not required for first launch unless decided otherwise): same interface, read-only creds, tested in sandbox
 - [ ] Privacy policy, terms, in-app account deletion
 - [ ] Compliance review of all customer-facing copy
 - [ ] Accessibility audit (VoiceOver, TalkBack)

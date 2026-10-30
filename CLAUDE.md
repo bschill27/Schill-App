@@ -44,8 +44,9 @@ with their broker one tap away.
 3. **Everything a client sends goes to the staff inbox**, never to Epic: messages,
    change requests, quote requests, documents, claims notices.
    Staff action it manually in Epic.
-4. **The Epic connector has a mock** backed by fictional BC sample data in
-   `packages/shared`. The mock is the default in dev and test. Never put real
+4. **The Epic connector is mock-only for now.** It's backed by fictional BC sample
+   data in `packages/shared`. The live Applied API connector will be added later
+   behind the same interface, so don't build anything that bypasses it. Never put real
    client data in the repo, fixtures, screenshots or logs.
 5. **Demo sign-in is for development only.** It must be impossible to enable in
    a production build. Real auth (MFA + Face ID / biometrics) is required before launch.
